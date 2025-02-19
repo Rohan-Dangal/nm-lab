@@ -28,7 +28,7 @@ int main() {
         x1 = x0 - fx0 / fdx0;
         Er = fabs(x1 - x0); // Error calculation
 
-        if (Er < E) {  // Convergence check
+        if (Er < E) { 
             printf("Root = %f\n", x1);
             return 0;
         }

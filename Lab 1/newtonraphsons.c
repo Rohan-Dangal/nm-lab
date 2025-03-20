@@ -1,20 +1,18 @@
-// C program for Newton-Raphson method
 #include <stdio.h>
 #include <math.h>
 
-#define F(x) (a3*x*x*x + a2*x*x + a1*x + a0)  
-#define FD(x) (3*a3*x*x + 2*a2*x + a1)        
-float a0, a1, a2, a3;
+#define F(x) (x*x*x*x - x - 10)  
+#define FD(x) (4*x*x*x - 1)        
 
 int main() {
     float x0, x1, fx0, fdx0, E, Er;
     int i = 0, max_iter = 50;  
 
-    printf("Enter coefficients a3, a2, a1, and a0:\n");
-    scanf("%f %f %f %f", &a3, &a2, &a1, &a0);
-
     printf("Enter initial guess and tolerance E:\n");
     scanf("%f %f", &x0, &E);
+
+    printf(" Iter |     x0      |     f(x0)     |    f'(x0)    |      x1      |    Error   \n");
+    printf("----------------------------------------------------------------------------\n");
 
     do {
         fx0 = F(x0);
@@ -27,6 +25,8 @@ int main() {
 
         x1 = x0 - fx0 / fdx0;
         Er = fabs(x1 - x0); // Error calculation
+
+        printf(" %3d  | %10.6f | %12.6f | %12.6f | %10.6f | %10.6f \n", i, x0, fx0, fdx0, x1, Er);
 
         if (Er < E) { 
             printf("Root = %f\n", x1);

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 
-// Define the function f(x) here. Example: f(x) = x^2 - 4
+// Define the function f(x) = x^2 - e^(-x) - 3
 double f(double x) {
-    return x * x - 4;  // Change this function as needed
+    return x * x - exp(-x) - 3;
 }
 
 // Bisection Method to find the root of the function f(x)
@@ -13,31 +13,33 @@ double bisection(double a, double b, double tol, int max_iter) {
         return -1;
     }
 
-    double c;  // Variable to store mid-point of interval
+    double c;
     int iter = 0;
 
-    // Iterate until the desired tolerance or maximum iterations are reached
-    while ((b - a) / 2 > tol && iter < max_iter) {
-        c = (a + b) / 2;  // Mid-point
-        if (f(c) == 0) {
-            return c;  // Exact root found
-        } else if (f(a) * f(c) < 0) {
-            b = c;  // The root is in the left half
-        } else {
-            a = c;  // The root is in the right half
-        }
+    printf(" Iter |     a      |     b      |     c      |   f(c)     \n");
+    printf("------------------------------------------------------\n");
 
+    while ((b - a) / 2 > tol && iter < max_iter) {
+        c = (a + b) / 2;
+        printf(" %3d  | %8.6f | %8.6f | %8.6f | %8.6f \n", iter, a, b, c, f(c));
+
+        if (f(c) == 0) {
+            return c;
+        } else if (f(a) * f(c) < 0) {
+            b = c;
+        } else {
+            a = c;
+        }
         iter++;
     }
 
-    return (a + b) / 2;  // Return the root approximation
+    return (a + b) / 2;
 }
 
 int main() {
     double a, b, tol;
     int max_iter;
 
-    // Get input from the user
     printf("Enter the interval [a, b]: ");
     scanf("%lf %lf", &a, &b);
     printf("Enter the tolerance: ");
@@ -45,7 +47,6 @@ int main() {
     printf("Enter maximum number of iterations: ");
     scanf("%d", &max_iter);
 
-    // Call bisection method to find the root
     double root = bisection(a, b, tol, max_iter);
 
     if (root != -1) {
